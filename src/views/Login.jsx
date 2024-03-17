@@ -9,11 +9,11 @@ export default function Login() {
             <form action="">
                 <div className="mb-5">
                     <label htmlFor="email" className="text-black block text-sm font-semibold">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Tu e-mail" className="w-full mt-1 p-2 border border-gray-300 rounded-md" />
+                    <input type="email" id="email" name="email" placeholder="Tu e-mail" className="w-full mt-1 p-2 border border-gray-light rounded-md" />
                 </div>
                 <div className="mb-5">
                     <label htmlFor="password" className="text-black block text-sm font-semibold">Contraseña:</label>
-                    <input type="password" id="password" name="password" placeholder="Tu contraseña" className="w-full mt-1 p-2 border border-gray-300 rounded-md" />
+                    <input type="password" id="password" name="password" placeholder="Tu contraseña" className="w-full mt-1 p-2 border border-gray-light rounded-md" />
                 </div>
                 <div>
                     <button type="submit" className="w-full mt-4 uppercase cursor-pointer bg-orange-crayola text-black font-bold p-3 rounded-md hover:bg-royal-purple hover:text-ghost-white">
@@ -23,7 +23,7 @@ export default function Login() {
             </form>
         </div>
         <nav className="mt-5">
-            <Link to="/auth/register" className="text-gray">
+            <Link to="/auth/register" className="text-gray-light">
                 ¿No tienes cuenta? Regístrate
             </Link>
         </nav>

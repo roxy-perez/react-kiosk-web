@@ -12,7 +12,7 @@ export default {
       'purpureus': '#9650B8',
       'orange-crayola': '#FE7C39',
       'black': '#232122',
-      'gray': '#6b7280',
+      'gray-light': '#6b7280',
     },
     extend: {},
   },
