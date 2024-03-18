@@ -10,12 +10,15 @@ export default function Sidebar() {
 
       <div className="mt-10">
         {categories.map((cat) => (
-          <Category category={cat} />
+          <Category key={cat.id} category={cat} />
         ))}
       </div>
 
-      <div className="mx-2 my-4 p-2 bg-royal-purple text-ghost-white rounded-md cursor-pointer hover:bg-orange-crayola hover:text-black">
-        <button type="button" className="w-full text-center uppercase font-bold rounded-lg truncate">
+      <div className="mx-2 my-4 p-2 bg-royal-purple text-ghost-white rounded-md cursor-pointer hover:bg-orange-crayola">
+        <button
+          type="button"
+          className="w-full text-center uppercase font-bold rounded-lg truncate"
+        >
           Cancelar pedido
         </button>
       </div>
