@@ -10,7 +10,7 @@ export default function Product({ product }) {
         <p className="mt-5 font-black text-4xl text-purpureus">{formatMoney(price)}</p>
 
         <button type="button" 
-        className="w-full mt-4 uppercase cursor-pointer bg-orange-crayola text-ghost-white font-bold p-3 rounded-md hover:bg-gray-light hover:text-ghost-white"
+        className="w-full mt-4 uppercase cursor-pointer bg-orange-crayola text-ghost-white font-bold p-3 rounded-md hover:bg-black hover:text-ghost-white"
         >Agregar</button>
       </div>
     </div>
