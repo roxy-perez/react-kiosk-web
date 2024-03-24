@@ -1,7 +1,10 @@
+import useKiosk from "../hooks/useKiosk";
 import Category from "./Category";
 import { categories } from "../data/categories";
 
 export default function Sidebar() {
+  const { categories } = useKiosk();
+
   return (
     <aside className="md:w-72">
       <div className="p-4">
