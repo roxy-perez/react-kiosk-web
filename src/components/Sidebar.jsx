@@ -1,6 +1,6 @@
 import useKiosk from "../hooks/useKiosk";
 import Category from "./Category";
-import { categories } from "../data/categories";
+import { categories as categoriesData } from "../data/categories";
 
 export default function Sidebar() {
   const { categories } = useKiosk();
@@ -12,8 +12,8 @@ export default function Sidebar() {
       </div>
 
       <div className="mt-10">
-        {categories.map((cat) => (
-          <Category key={cat.id} category={cat} />
+        {categories.map(category => (
+          <Category key={category.id} category={category} />
         ))}
       </div>
 

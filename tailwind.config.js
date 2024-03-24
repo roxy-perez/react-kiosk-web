@@ -11,6 +11,7 @@ export default {
       'royal-purple': '#754599',
       'purpureus': '#9650B8',
       'orange-crayola': '#FE7C39',
+      'orange-crayola-light': '#FFA27A',
       'black': '#232122',
       'gray-light': '#6b7280',
     },
