@@ -10,7 +10,7 @@ export default function Product({ product }) {
     <div className="border p-3 shadow-sm bg-ghost-white">
       <img src={`/img/${image}.jpg`} className="w-full" alt="{`imagen ${name}`}" />
       <div className="mt-4 p-5">
-        <h3 className="text-2xl font-bold">{name}</h3>
+        <h3 className="text-2xl font-bold text-black">{name}</h3>
         <p className="mt-5 font-black text-4xl text-purpureus">{formatMoney(price)}</p>
 
         <button type="button"

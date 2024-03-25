@@ -15,6 +15,10 @@ const customStyles = {
         bottom: "auto",
         marginRight: "-50%",
         transform: "translate(-50%, -50%)",
+        width: "60%",
+        border: "2px solid #6b7280",
+        borderRadius: "10px",
+        overflow: 'hidden',
     },
 };
 
