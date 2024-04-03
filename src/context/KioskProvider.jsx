@@ -8,10 +8,12 @@ const KioskProvider = ({ children }) => {
     const [selectedCategory, setSelectedCategory] = useState(categories[0]);
     const [modal, setModal] = useState(false);
     const [product, setProduct] = useState({});
+    const [order, setOrder] = useState([]);
 
     const handleClickCategory = id => {
         const category = categories.filter(cat => cat.id === id)[0];
         setSelectedCategory(category);
+        console.log(selectedCategory);
     };
 
     const handleClickModal = () => {
@@ -21,6 +23,10 @@ const KioskProvider = ({ children }) => {
     const handleSetProduct = product => {
         setProduct(product);
     };
+
+    const handleAddOrder = ({ category_id, image, ...product }) => {
+        setOrder([...order, product]);
+    }
 
     return (
         <KioskContext.Provider
@@ -32,6 +38,8 @@ const KioskProvider = ({ children }) => {
                 handleClickModal,
                 product,
                 handleSetProduct,
+                order,
+                handleAddOrder
             }}
         >
             {children}
