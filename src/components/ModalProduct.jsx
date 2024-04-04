@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useKiosk from "../hooks/useKiosk";
 import { formatMoney } from "../helpers";
 
 export default function ModalProduct() {
-  const { product, handleClickModal, handleAddOrder } = useKiosk();
+  const { product, handleClickModal, handleAddOrder, order } = useKiosk();
   const [amount, setAmount] = useState(1);
+  const [orderEdition, setOrderEdition] = useState(false);
+
+  useEffect(() => {
+    if (order.some((orderState) => orderState.id === product.id)) {
+      const orderUpdated = order.filter(orderState => orderState.id === product.id)[0];
+      setAmount(orderUpdated.amount);
+      setOrderEdition(true);
+    }
+  }, [order]);
 
   return (
     <div className="md:flex gap-10">
@@ -82,13 +91,13 @@ export default function ModalProduct() {
         </div>
         <button
           type="button"
-          onClick={() => {
-            handleAddOrder({ ...product, amount });
-            handleClickModal();
-          }}
           className="mt-5 bg-violet-jtc text-ghost-white font-bold py-2 px-4 uppercase rounded-lg hover:bg-purpureus"
+          onClick={() => {
+            handleAddOrder({ ...product, amount })
+            handleClickModal()
+          }}
         >
-          Añadir al pedido
+          {orderEdition ? "Guardar cambios" : "Añadir al pedido"}
         </button>
       </div>
     </div>
