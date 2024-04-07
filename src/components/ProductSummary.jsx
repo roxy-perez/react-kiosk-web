@@ -1,6 +1,8 @@
 
+import useKiosk from "../hooks/useKiosk";
 import { formatMoney } from "../helpers";
 export default function ProductSummary({ product }) {
+  const { handelEditAmount, handleDeleteOrderProduct } = useKiosk();
   const { id, name, price, amount } = product;
 
   return (
@@ -16,6 +18,7 @@ export default function ProductSummary({ product }) {
         <button
           type="button"
           className="bg-sky-700 p-2 text-white rounded-md font-bold uppercase shadow-md text-center"
+          onClick={() => handelEditAmount(id)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -29,6 +32,7 @@ export default function ProductSummary({ product }) {
         <button
           type="button"
           className="bg-red-700 p-2 text-white rounded-md font-bold uppercase shadow-md text-center"
+          onClick={() => handleDeleteOrderProduct(id)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

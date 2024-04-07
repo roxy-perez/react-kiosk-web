@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { categories as categoriesDB } from "../data/categories";
 
@@ -10,6 +10,12 @@ const KioskProvider = ({ children }) => {
     const [modal, setModal] = useState(false);
     const [product, setProduct] = useState({});
     const [order, setOrder] = useState([]);
+    const [total, setTotal] = useState(0);
+
+    useEffect(() => {
+        const totalOrder = order.reduce((total, product) => total + product.price * product.amount, 0);
+        setTotal(totalOrder);
+    }, [order]);
 
     const handleClickCategory = (id) => {
         const category = categories.filter((cat) => cat.id === id)[0];
@@ -24,7 +30,7 @@ const KioskProvider = ({ children }) => {
         setProduct(product);
     };
 
-    const handleAddOrder = ({ category_id, image, ...product }) => {
+    const handleAddOrder = ({ category_id, ...product }) => {
         if (order.some(orderState => orderState.id === product.id)) {
             const orderUpdated = order.map(orderState => orderState.id === product.id
                 ? product : orderState);
@@ -35,6 +41,18 @@ const KioskProvider = ({ children }) => {
             toast.success("Producto agregado al pedido");
         }
     };
+
+    const handelEditAmount = id => {
+        const productUpdated = order.filter(product => product.id === id)[0];
+        setProduct(productUpdated);
+        setModal(!modal);
+    }
+
+    const handleDeleteOrderProduct = id => {
+        const orderUpdated = order.filter(product => product.id !== id);
+        setOrder(orderUpdated);
+        toast.error("Producto eliminado del pedido");
+    }
 
     return (
         <KioskContext.Provider
@@ -48,6 +66,9 @@ const KioskProvider = ({ children }) => {
                 handleSetProduct,
                 order,
                 handleAddOrder,
+                handelEditAmount,
+                handleDeleteOrderProduct,
+                total,
             }}
         >
             {children}
