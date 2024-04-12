@@ -1,6 +1,5 @@
 import useKiosk from "../hooks/useKiosk";
 import Category from "./Category";
-import { categories as categoriesData } from "../data/categories";
 
 export default function Sidebar() {
   const { categories } = useKiosk();
@@ -15,6 +14,7 @@ export default function Sidebar() {
         {categories.map(category => (
           <Category key={category.id} category={category} />
         ))}
+
       </div>
 
       <div className="mx-2 my-4 p-2 bg-royal-purple text-ghost-white rounded-md cursor-pointer hover:bg-orange-crayola">
