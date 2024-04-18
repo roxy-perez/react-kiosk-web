@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
-import { createRef, useState } from 'react';
-import axiosInstance from '../config/axios';
+import { Link } from "react-router-dom";
+import { createRef, useState } from "react";
+import axiosInstance from "../config/axios";
+import Alert from "../components/Alert";
 
 export default function Register() {
   const nameRef = createRef();
@@ -8,7 +9,9 @@ export default function Register() {
   const passwordlRef = createRef();
   const passwordConfirmationRef = createRef();
 
-  const handleSubmit = async e => {
+  const [error, setError] = useState([]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const data = {
@@ -18,10 +21,10 @@ export default function Register() {
       password_confirmation: passwordConfirmationRef.current.value,
     };
     try {
-      const response = await axiosInstance.post('/register', data);
+      const response = await axiosInstance.post("/register", data);
       console.log(response);
     } catch (error) {
-      console.log(error);
+      setError(Object.values(error.response.data.errors));
     }
   };
 
@@ -31,7 +34,11 @@ export default function Register() {
       <p>Crea tu cuenta rellenando el formulario</p>
 
       <div className="mt-10 shadow-md rounded-md px-5 py-10 bg-ghost-white">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} noValidate>
+          {error
+            ? error.map((error) => <Alert key={error}>{error}</Alert>)
+            : null}
+
           <div className="mb-5">
             <label
               htmlFor="name"

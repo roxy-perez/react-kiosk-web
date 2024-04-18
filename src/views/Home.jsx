@@ -8,15 +8,16 @@ export default function Home() {
   const { selectedCategory } = useKiosk();
 
   // Consulta SWR
-  // Consulta SWR
-  const fetcher = () => axiosInstance('/products').then(data => data.data)
-  const { data, error, isLoading } = useSWR('/products', fetcher, {
-    refreshInterval: 1000
-  })
+  const fetcher = () => axiosInstance("/products").then((data) => data.data);
+  const { data, error, isLoading } = useSWR("/products", fetcher, {
+    refreshInterval: 1000,
+  });
 
   if (isLoading) return <p>Cargando...</p>;
 
-  const products = data.data.filter(product => product.category_id === selectedCategory.id)
+  const products = data.data.filter(
+    (product) => product.category_id === selectedCategory.id,
+  );
 
   return (
     <>
