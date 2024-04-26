@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { createRef, useState } from "react";
-import axiosInstance from "../config/axios";
 import Alert from "../components/Alert";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Register() {
   const nameRef = createRef();
@@ -10,6 +10,7 @@ export default function Register() {
   const passwordConfirmationRef = createRef();
 
   const [error, setError] = useState([]);
+  const { register } = useAuth({ middleware: "guest", url: "/" });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,12 +21,8 @@ export default function Register() {
       password: passwordlRef.current.value,
       password_confirmation: passwordConfirmationRef.current.value,
     };
-    try {
-      const response = await axiosInstance.post("/register", data);
-      console.log(response);
-    } catch (error) {
-      setError(Object.values(error.response.data.errors));
-    }
+
+    await register(data, setError);
   };
 
   return (

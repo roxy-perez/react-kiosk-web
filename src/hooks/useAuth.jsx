@@ -1,34 +1,28 @@
-import { useEffect } from 'react';
-import useSWR from 'swr';
-import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../config/axios';
+import { useEffect } from "react";
+import useSWR from "swr";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../config/axios";
 
 export const useAuth = ({ middleware, url }) => {
-  const token = localStorage.getItem('AUTH_TOKEN');
+  const token = localStorage.getItem("AUTH_TOKEN");
   const navigate = useNavigate();
 
-  const {
-    data: user,
-    error,
-    mutate,
-  } = useSWR('/user', () => {
-    axiosInstance('/user', {
+  const { data: user, error, mutate } = useSWR("/user", () => {
+    return axiosInstance("/user", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then(res => res.data)
-      .catch(err => {
+      .then((res) => res.data)
+      .catch((err) => {
         throw Error(err?.response?.data?.errors);
       });
   });
 
-  const register = async () => {};
-
-  const login = async (datos, setError) => {
+  const register = async (datos, setError) => {
     try {
-      const { data } = await axiosInstance.post('/login', datos);
-      localStorage.setItem('AUTH_TOKEN', data.token);
+      const { data } = await axiosInstance.post("/register", datos);
+      localStorage.setItem("AUTH_TOKEN", data.token);
       setError([]);
       await mutate();
     } catch (error) {
@@ -36,19 +30,45 @@ export const useAuth = ({ middleware, url }) => {
     }
   };
 
-  console.log(user);
-  console.log(error);
-  const logout = async () => {};
+  const login = async (datos, setError) => {
+    try {
+      const { data } = await axiosInstance.post("/login", datos);
+      localStorage.setItem("AUTH_TOKEN", data.token);
+      setError([]);
+      await mutate();
+    } catch (error) {
+      setError(Object.values(error.response.data.errors));
+    }
+  };
 
   useEffect(() => {
-    if (user && url && middleware === 'guest') {
+    if (user && url && middleware === "guest") {
       navigate(url);
     }
+    if (middleware === "auth" && error) {
+      navigate("/auth/login");
+    }
   }, [user, error]);
+
+  const logout = async () => {
+    try {
+      await axiosInstance.post("/logout", null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      localStorage.removeItem("AUTH_TOKEN");
+      await mutate(undefined);
+    } catch (error) {
+      throw Error(error?.response?.data?.errors)
+    }
+  };
 
   return {
     login,
     register,
     logout,
+    user,
+    error,
   };
 };

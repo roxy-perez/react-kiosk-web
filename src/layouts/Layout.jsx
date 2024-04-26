@@ -4,8 +4,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "../components/Sidebar";
 import Summary from "../components/Summary";
-import useKiosk from "../hooks/useKiosk";
 import ModalProduct from "../components/ModalProduct";
+import useKiosk from "../hooks/useKiosk";
+import { useAuth } from "../hooks/useAuth";
 
 Modal.setAppElement('#root');
 
@@ -25,6 +26,7 @@ const customStyles = {
 };
 
 export default function Layout() {
+    const { user, error } = useAuth({ middleware: 'auth' });
     const { modal } = useKiosk();
 
     return (
