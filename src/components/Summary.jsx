@@ -1,10 +1,16 @@
 import useKiosk from "../hooks/useKiosk";
 import ProductSummary from "./ProductSummary";
 import { formatMoney } from "../helpers";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Summary() {
-  const { order, total } = useKiosk();
+  const { order, total, handleSubmitNewOrder } = useKiosk();
   const checkOrder = () => order.length === 0;
+  const { logout } = useAuth({});
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSubmitNewOrder(logout);
+  }
 
   return (
     <aside className="w-72 h-screen overflow-y-scroll p-5">
@@ -29,7 +35,8 @@ export default function Summary() {
           {formatMoney(total)}
         </span>
       </p>
-      <form className="w-full">
+      <form className="w-full"
+        onSubmit={handleSubmit}>
         <div className="w-full">
           <input
             type="submit"
