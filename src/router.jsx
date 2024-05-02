@@ -4,6 +4,7 @@ import Layout from "./layouts/Layout";
 import Home from "./views/Home";
 import Login from "./views/Login";
 import Register from "./views/Register";
+import AdminLayout from "./layouts/AdminLayout";
 
 const Router = createBrowserRouter([
     {
@@ -28,7 +29,26 @@ const Router = createBrowserRouter([
             {
                 path: "/auth/register",
                 element: <Register />,
+            },
+            {
+                path: "/admin",
+                element: <AdminLayout />,
+                children: [
+                    {
+                        index: true,
+                        element: <Orders />,
+                    },
+                    {
+                        path: "/products",
+                        element: <Products />,
+                    },
+                    {
+                        path: "/categories",
+                        element: <Categories />,
+                    },
+                ]
             }
+
         ]
     },
 ]);
