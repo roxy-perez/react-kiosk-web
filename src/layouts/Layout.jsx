@@ -26,7 +26,7 @@ const customStyles = {
 };
 
 export default function Layout() {
-    const { user, error } = useAuth({ middleware: 'auth' });
+    useAuth({ middleware: 'auth' });
     const { modal } = useKiosk();
 
     return (

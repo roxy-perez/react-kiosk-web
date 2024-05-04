@@ -1,5 +1,15 @@
+import { Outlet } from "react-router-dom";
+import AdminSidebar from "../components/AdminSidebar";
+import { useAuth } from "../hooks/useAuth";
+
 export default function AdminLayout() {
+  useAuth({ middleware: "admin" });
   return (
-    <div>AdminLayout</div>
+    <div className="md:flex">
+      <AdminSidebar />
+      <main className="flex-1 h-screen overflow-y-scroll bg-ghost-white p-3">
+        <Outlet />
+      </main>
+    </div>
   )
 }

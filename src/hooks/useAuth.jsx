@@ -7,7 +7,11 @@ export const useAuth = ({ middleware, url }) => {
   const token = localStorage.getItem("AUTH_TOKEN");
   const navigate = useNavigate();
 
-  const { data: user, error, mutate } = useSWR("/user", () => {
+  const {
+    data: user,
+    error,
+    mutate,
+  } = useSWR("/user", () => {
     return axiosInstance("/user", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -42,8 +46,14 @@ export const useAuth = ({ middleware, url }) => {
   };
 
   useEffect(() => {
-    if (user && url && middleware === "guest") {
+    if (middleware === "guest" && user && url) {
       navigate(url);
+    }
+    if (middleware === "guest" && user && user.admin) {
+      navigate("/admin");
+    }
+    if (middleware === "admin" && user && !user.admin) {
+      navigate("/");
     }
     if (middleware === "auth" && error) {
       navigate("/auth/login");
@@ -60,7 +70,7 @@ export const useAuth = ({ middleware, url }) => {
       localStorage.removeItem("AUTH_TOKEN");
       await mutate(undefined);
     } catch (error) {
-      throw Error(error?.response?.data?.errors)
+      throw Error(error?.response?.data?.errors);
     }
   };
 
