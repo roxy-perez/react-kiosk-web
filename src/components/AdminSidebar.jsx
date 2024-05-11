@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { withMiddleware } from "swr/_internal";
+import { Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import { withMiddleware } from 'swr/_internal';
 export default function AdminSidebar() {
   const { logout } = useAuth({ middleware: 'auth' });
   return (
@@ -18,7 +18,7 @@ export default function AdminSidebar() {
       </nav>
       <div className="my-5 px-5">
         <button
-          className="text-center bg-orange-crayola w-full p-3 font-bold text-ghost-white truncate"
+          className="text-center rounded-lg bg-gray-light hover:bg-black w-full p-3 font-bold text-ghost-white truncate"
           onClick={logout}
         >
           Cerrar Sesión
